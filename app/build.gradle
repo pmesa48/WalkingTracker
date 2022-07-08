@@ -28,14 +28,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "FLICKR_API_BASE_URL","\"https://www.flickr.com/services/rest/\"")
             buildConfigField("String", "FLICKR_API_PHOTO_URL","\"https://live.staticflickr.com/\"")
-            buildConfigField("String", "FLICKR_API_KEY","\"fb191fe85c6cb055051ab91325b3fa88\"")
+            buildConfigField("String", "FLICKR_API_KEY","\"your_api_key\"")
             buildConfigField("String", "IMAGE_FORMAT","\"jpg\"")
         }
         debug {
             minifyEnabled false
             buildConfigField("String", "FLICKR_API_BASE_URL","\"https://www.flickr.com/services/rest/\"")
             buildConfigField("String", "FLICKR_API_PHOTO_URL","\"https://live.staticflickr.com/\"")
-            buildConfigField("String", "FLICKR_API_KEY","\"fb191fe85c6cb055051ab91325b3fa88\"")
+            buildConfigField("String", "FLICKR_API_KEY","\"your_api_key\"")
             buildConfigField("String", "IMAGE_FORMAT","\"jpg\"")
         }
     }
