@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">PabloMesa-Challenge</string>
+    <string name="walking_workout_begin_text">Press start to begin your walking activity</string>
+    <string name="walking_workout_start_moving_text">You need to move at least 100m to register an entry</string>
+    <string name="you_need_to_provide_location">You have not granted location permissions, go to app settings</string>
+
+    <string name="content_description_start_workout_action_button">Action button to start your activity</string>
+    <string name="content_description_cancel_workout_action_button">Action button to cancel workout</string>
+    <string name="content_description_image_associated_with_a_location_point_in_your_workout">Image associated with a location point in your workout</string>
+    <string name="notification_subtext">See workout details</string>
+    <string name="channel_group_id">walking_activity</string>
+    <string name="channel_group_name">Activities</string>
+    <string name="channel_id">service_channel</string>
+    <string name="channel_name">Service Notifications</string>
+    <string name="notification_title">Current activity</string>
+    <string name="notification_ticker">details</string>
+    <string name="start_menu_item_title">START</string>
+    <string name="stop_menu_item_title">STOP</string>
+</resources>
