@@ -9,7 +9,7 @@ interface TrackerStatusCache {
 
     fun getSingle(id: Int): TrackerStatus?
 
-    fun change(id: Int, active: Boolean)
+    fun change(status: TrackerStatus)
 
     fun add(trackerStatus: TrackerStatus)
 }

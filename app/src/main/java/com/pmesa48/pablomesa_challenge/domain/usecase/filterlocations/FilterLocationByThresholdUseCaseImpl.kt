@@ -17,14 +17,13 @@ class FilterLocationByThresholdUseCaseImpl constructor(
     private val entryRepository: EntryRepository
 ) : FilterLocationByThresholdUseCase {
 
-    override fun get(distanceInMeters: Int): Flow<Entry> {
-        return locationSource.start()
+    override fun get(distanceInMeters: Int) =
+        locationSource.start()
             .flowOn(Dispatchers.IO)
             .filter { byThreshold(entryRepository.getLastEntry(), it, distanceInMeters) }
             .map { getPhoto(it) }
             .filter { it.imagePath.isNotEmpty() }
             .onEach { entryRepository.add(it) }
-    }
 
     private suspend fun getPhoto(it: UserLocationDto) =
         when (val result = photoSource.getPhotoByLocation(it.lat, it.lng)) {
@@ -48,12 +47,11 @@ class FilterLocationByThresholdUseCaseImpl constructor(
     }
 }
 
-private fun UserLocationDto.toDomain(imagePath: String): Entry {
-    return Entry(
+private fun UserLocationDto.toDomain(imagePath: String) =
+    Entry(
         latitude = lat,
         longitude = lng,
         date = date,
         imagePath = imagePath
     )
-}
 

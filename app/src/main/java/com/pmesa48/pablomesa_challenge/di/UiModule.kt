@@ -14,5 +14,4 @@ object UiModule {
     fun providesLocationPermissionManager(): LocationPermissionManager {
         return LocationPermissionManager()
     }
-
 }

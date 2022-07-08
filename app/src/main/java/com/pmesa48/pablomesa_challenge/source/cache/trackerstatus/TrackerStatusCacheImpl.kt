@@ -7,17 +7,11 @@ class TrackerStatusCacheImpl(
     private val trackerStatusDao: TrackerStatusDao
 ) : TrackerStatusCache {
 
-    override fun change(id: Int, active: Boolean) {
-        trackerStatusDao.add(TrackerStatus(id, active))
-    }
+    override fun change(id: Int, active: Boolean) { trackerStatusDao.add(TrackerStatus(id, active)) }
 
-    override fun add(trackerStatus: TrackerStatus) {
-        trackerStatusDao.add(trackerStatus)
-    }
+    override fun add(trackerStatus: TrackerStatus) { trackerStatusDao.add(trackerStatus) }
 
-    override fun get(id: Int): Flow<TrackerStatus> = trackerStatusDao.get(id)
+    override fun get(id: Int) = trackerStatusDao.getAsFlow(id)
 
-    override fun getSingle(id: Int): TrackerStatus? {
-        return trackerStatusDao.getSingle(id)
-    }
+    override fun getSingle(id: Int) = trackerStatusDao.get(id)
 }

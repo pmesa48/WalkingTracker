@@ -14,8 +14,8 @@ interface TrackerStatusDao {
     fun add(trackerStatus: TrackerStatus)
 
     @Query("SELECT * FROM tracker_status WHERE id= :id")
-    fun get(id: Int): Flow<TrackerStatus>
+    fun getAsFlow(id: Int): Flow<TrackerStatus>
 
     @Query("SELECT * FROM tracker_status WHERE id= :id")
-    fun getSingle(id: Int): TrackerStatus?
+    fun get(id: Int): TrackerStatus?
 }

@@ -9,14 +9,12 @@ class TrackerStatusRepository(
     private val trackerStatusCache: TrackerStatusCache
 ) {
 
-    fun get(id: Int): Flow<TrackerStatus> {
-        return trackerStatusCache.get(id).onStart {
-            if (trackerStatusCache.getSingle(id) == null)
-                trackerStatusCache.add(TrackerStatus(id, false))
-        }
-    }
+    fun get(id: Int) =
+        trackerStatusCache.get(id)
+            .onStart {
+                if (trackerStatusCache.getSingle(id) == null)
+                    trackerStatusCache.add(TrackerStatus(id, false))
+            }
 
-    fun change(id: Int, active: Boolean) {
-        trackerStatusCache.change(id, active)
-    }
+    fun change(id: Int, active: Boolean) { trackerStatusCache.change(TrackerStatus(id, active)) }
 }

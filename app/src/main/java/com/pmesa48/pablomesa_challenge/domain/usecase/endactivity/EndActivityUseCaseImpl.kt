@@ -8,7 +8,5 @@ class EndActivityUseCaseImpl(
     private val entryRepository: EntryRepository
 ) : EndActivityUseCase {
 
-    override suspend fun end() {
-        withContext(Dispatchers.IO) { entryRepository.nuke() }
-    }
+    override suspend fun end() { withContext(Dispatchers.IO) { entryRepository.nuke() } }
 }

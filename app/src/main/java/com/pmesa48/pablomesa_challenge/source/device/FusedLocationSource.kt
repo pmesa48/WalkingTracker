@@ -8,7 +8,6 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.pmesa48.pablomesa_challenge.source.dto.UserLocationDto
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import java.util.concurrent.TimeUnit
 
@@ -22,33 +21,25 @@ class FusedLocationSource(
         maxWaitTime = TimeUnit.SECONDS.toMillis(10)
     }
 
-    override fun start(): Flow<UserLocationDto> {
-        return callbackFlow {
-            val locationCallback = object : LocationCallback() {
-                override fun onLocationResult(result: LocationResult) {
-                    result.lastLocation?.let { trySend(it.toSourceModel()) }
-                }
-            }
-            fusedLocationProviderClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
-            ).addOnFailureListener {
-                close(it)
-            }
-            awaitClose {
-                fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+    override fun start()= callbackFlow {
+        val locationCallback = object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult) {
+                result.lastLocation?.let { trySend(it.toSourceModel()) }
             }
         }
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        ).addOnFailureListener { close(it) }
+        awaitClose { fusedLocationProviderClient.removeLocationUpdates(locationCallback) }
     }
-
 }
 
 
-private fun Location.toSourceModel(): UserLocationDto {
-    return UserLocationDto(
+private fun Location.toSourceModel() =
+    UserLocationDto(
         lat = this.latitude,
         lng = this.longitude,
         date = System.currentTimeMillis()
     )
-}

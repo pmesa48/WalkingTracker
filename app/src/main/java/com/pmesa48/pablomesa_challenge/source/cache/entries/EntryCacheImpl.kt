@@ -5,15 +5,11 @@ import com.pmesa48.pablomesa_challenge.model.Entry
 class EntryCacheImpl(
     private val entryDao: EntryDao
 ) : EntryCache {
-    override fun add(entry: Entry) {
-        entryDao.add(entry)
-    }
+    override fun add(entry: Entry) { entryDao.add(entry) }
 
-    override fun getAll() = entryDao.getAll()
+    override fun getAll() = entryDao.getAllAsFlow()
 
-    override suspend fun getLast() = entryDao.getLast()
+    override suspend fun getLast() = entryDao.latest()
 
-    override fun nuke() {
-        entryDao.nuke()
-    }
+    override fun nuke() { entryDao.deleteAll() }
 }

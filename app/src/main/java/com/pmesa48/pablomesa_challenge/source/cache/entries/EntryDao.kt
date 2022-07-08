@@ -13,11 +13,11 @@ interface EntryDao {
     fun add(entry: Entry)
 
     @Query("SELECT * FROM entries ORDER BY date DESC")
-    fun getAll(): Flow<List<Entry>>
+    fun getAllAsFlow(): Flow<List<Entry>>
 
     @Query("SELECT * FROM entries ORDER BY date DESC LIMIT 1")
-    suspend fun getLast(): Entry
+    suspend fun latest(): Entry
 
     @Query("DELETE FROM entries")
-    fun nuke()
+    fun deleteAll()
 }
