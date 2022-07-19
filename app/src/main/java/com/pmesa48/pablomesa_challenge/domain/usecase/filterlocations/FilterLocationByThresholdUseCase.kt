@@ -7,6 +7,6 @@ interface FilterLocationByThresholdUseCase {
     fun get(distanceInMeters: Int = DISTANCE_IN_M): Flow<Entry>
 
     companion object {
-        private const val DISTANCE_IN_M = 100
+        private const val DISTANCE_IN_M = 0
     }
 }

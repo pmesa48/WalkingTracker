@@ -4,8 +4,12 @@ import com.pmesa48.pablomesa_challenge.domain.usecase.changeservicestatus.Change
 import com.pmesa48.pablomesa_challenge.domain.usecase.changeservicestatus.ChangeServiceStatusUseCaseImpl
 import com.pmesa48.pablomesa_challenge.domain.usecase.endactivity.EndActivityUseCase
 import com.pmesa48.pablomesa_challenge.domain.usecase.endactivity.EndActivityUseCaseImpl
+import com.pmesa48.pablomesa_challenge.domain.usecase.filterlocations.FilterLocationByThresholdManager
 import com.pmesa48.pablomesa_challenge.domain.usecase.filterlocations.FilterLocationByThresholdUseCase
 import com.pmesa48.pablomesa_challenge.domain.usecase.filterlocations.FilterLocationByThresholdUseCaseImpl
+import com.pmesa48.pablomesa_challenge.domain.usecase.filterlocations.mappers.EntryMapper
+import com.pmesa48.pablomesa_challenge.domain.usecase.filterlocations.mappers.LocationMapper
+import com.pmesa48.pablomesa_challenge.domain.usecase.filterlocations.mappers.PhotoMapper
 import com.pmesa48.pablomesa_challenge.domain.usecase.getentries.GetEntriesUseCase
 import com.pmesa48.pablomesa_challenge.domain.usecase.getentries.GetEntriesUseCaseImpl
 import com.pmesa48.pablomesa_challenge.model.repository.EntryRepository
@@ -25,14 +29,25 @@ object DomainModule {
 
     @Provides
     fun provideFilterLocationByThresholdUseCase(
-        stepCounterRepository: LocationSource,
-        photoRepository: PhotoSource,
+        dataManager: FilterLocationByThresholdManager,
         entryRepository: EntryRepository
     ): FilterLocationByThresholdUseCase {
         return FilterLocationByThresholdUseCaseImpl(
-            stepCounterRepository,
-            photoRepository,
+            dataManager,
             entryRepository
+        )
+    }
+
+    @Provides
+    fun provideFilterLocationByThresholdManager(
+        photoSource: PhotoSource,
+        locationSource: LocationSource,
+        locationMapper: LocationMapper,
+        photoMapper: PhotoMapper,
+        entryMapper: EntryMapper
+    ): FilterLocationByThresholdManager {
+        return FilterLocationByThresholdManager(
+            photoSource, locationSource, locationMapper, photoMapper, entryMapper
         )
     }
 

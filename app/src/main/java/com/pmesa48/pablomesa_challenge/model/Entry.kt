@@ -14,4 +14,9 @@ data class Entry(
     val date: Long,
     @ColumnInfo(name = "imagePath")
     val imagePath: String
-)
+) {
+    companion object {
+        fun empty() = Entry(0.0,0.0, 0L, "")
+    }
+    fun hasImage() = imagePath != ""
+}

@@ -68,7 +68,6 @@ class EntryListFragment : Fragment() {
             locationRecyclerView.layoutManager = LinearLayoutManager(context)
         }
         lifecycleScope.launchWhenStarted {
-            delay(1000)
             vm.serviceStatus.collect(::renderState)
         }
     }

@@ -5,11 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface TrackerStatusCache {
 
-    fun get(id: Int): Flow<TrackerStatus>
+    fun getAsFlow(id: Int): Flow<TrackerStatus>
 
-    fun getSingle(id: Int): TrackerStatus?
+    fun get(id: Int): TrackerStatus?
 
-    fun change(status: TrackerStatus)
-
-    fun add(trackerStatus: TrackerStatus)
+    fun change(id: Int, active: Boolean)
 }

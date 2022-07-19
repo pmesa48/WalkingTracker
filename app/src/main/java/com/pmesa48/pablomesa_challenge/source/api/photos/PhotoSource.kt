@@ -7,11 +7,7 @@ interface PhotoSource {
     suspend fun getPhotoByLocation(latitude: Double, longitude: Double): Result
 
     sealed class Result {
-        data class Error(val message: String) : Result()
+        data class Error(val code: Int, val message: String, val e: Throwable? = null) : Result()
         data class Success(val photos: List<PhotoDto>) : Result()
-    }
-
-    companion object {
-        const val STATUS_OK = "ok"
     }
 }

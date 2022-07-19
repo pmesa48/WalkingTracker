@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class PhotosPageInfoDto(
     @SerializedName("photo")
-    val photos: List<PhotoDto>
+    val photos: List<PhotoDto>?
 )

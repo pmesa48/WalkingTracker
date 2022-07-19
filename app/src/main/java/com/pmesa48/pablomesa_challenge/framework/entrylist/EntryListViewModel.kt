@@ -22,9 +22,12 @@ class EntryListViewModel @Inject constructor(
 
     val updates =
         getEntriesUseCase.get()
-            .map { UiState.OnUpdate(it) }
-            .onCompletion { UiState.Stopped }
-            .onEmpty { UiState.Empty }
+            .map {
+                if(it.isEmpty())
+                    UiState.Empty
+                else
+                    UiState.OnUpdate(it)
+            }
 
     sealed class UiState {
         object Stopped : UiState()

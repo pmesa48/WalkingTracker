@@ -5,6 +5,7 @@ import com.pmesa48.pablomesa_challenge.domain.usecase.changeservicestatus.Change
 import com.pmesa48.pablomesa_challenge.domain.usecase.endactivity.EndActivityUseCase
 import com.pmesa48.pablomesa_challenge.domain.usecase.filterlocations.FilterLocationByThresholdUseCase
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.catch
 import kotlin.coroutines.CoroutineContext
 
 class TrackerManager(
@@ -24,7 +25,9 @@ class TrackerManager(
 
     fun onServiceStart() {
         CoroutineScope(serviceContext).launch {
-            filterLocationByThresholdUseCase.get().collect { println(it) }
+            filterLocationByThresholdUseCase.get()
+                .catch { it.printStackTrace() }
+                .collect { println(it) }
             changeServiceStatusUseCase.changeState(true)
         }
     }

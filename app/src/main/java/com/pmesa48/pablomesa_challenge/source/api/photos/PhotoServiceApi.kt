@@ -11,5 +11,5 @@ interface PhotoServiceApi {
     suspend fun getPhotosByLocation(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double
-    ): GetPhotoByLocationDto
+    ): GetPhotoByLocationDto?
 }

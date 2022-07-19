@@ -5,11 +5,11 @@ import com.pmesa48.pablomesa_challenge.BuildConfig
 
 data class PhotoDto(
     @SerializedName("id")
-    val id: String,
+    val id: String?,
     @SerializedName("server")
-    val serverId: String,
+    val serverId: String?,
     @SerializedName("secret")
-    val secret: String,
+    val secret: String?,
     @SerializedName("ispublic")
     val isPublic: Boolean
 ) {

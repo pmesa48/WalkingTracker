@@ -1,6 +1,11 @@
 package com.pmesa48.pablomesa_challenge.source.api.photos
 
-import com.pmesa48.pablomesa_challenge.source.api.photos.PhotoSource.Companion.STATUS_OK
+import android.util.Log
+import com.google.gson.JsonSyntaxException
+import com.pmesa48.pablomesa_challenge.source.api.photos.PhotoSource.Result.Error
+import com.pmesa48.pablomesa_challenge.source.api.photos.PhotoSource.Result.Success
+import com.pmesa48.pablomesa_challenge.source.dto.GetPhotoByLocationDto
+import com.pmesa48.pablomesa_challenge.source.dto.PhotosPageInfoDto
 import okio.IOException
 import retrofit2.Retrofit
 import java.net.UnknownHostException
@@ -8,6 +13,14 @@ import java.net.UnknownHostException
 class PhotoSourceImpl(
     retrofit: Retrofit
 ) : PhotoSource {
+
+    companion object {
+        private const val MISSING_VALUES = 43
+        private const val UNKNOWN_HOST_CODE = 42
+        private const val IO_CODE = 41
+        private const val JSON_SYNTAX_CODE = 40
+        private const val STATUS_OK = "ok"
+    }
 
     val api: PhotoServiceApi = retrofit.create(PhotoServiceApi::class.java)
 
@@ -17,16 +30,29 @@ class PhotoSourceImpl(
     ): PhotoSource.Result {
         return try {
             val result = api.getPhotosByLocation(latitude, longitude)
-            println(result.toString())
-            if (result.status == STATUS_OK) {
-                PhotoSource.Result.Success(result.result.photos)
+            if (successfulResponse(result)) {
+                Success(result!!.result!!.photos!!)
             } else {
-                PhotoSource.Result.Error("${result.code} - ${result.message}")
+                Error(MISSING_VALUES, result?.message ?: "")
             }
         } catch (e: UnknownHostException) {
-            PhotoSource.Result.Error(e.message ?: "")
+            e.printStackTrace()
+            Error(UNKNOWN_HOST_CODE, e.message ?: "")
         } catch (e: IOException) {
-            PhotoSource.Result.Error(e.message ?: "")
+            e.printStackTrace()
+            Error(IO_CODE,e.message ?: "")
+        } catch (e: JsonSyntaxException) {
+            e.printStackTrace()
+            Error(JSON_SYNTAX_CODE, e.message ?: "")
         }
     }
+
+    private fun successfulResponse(
+        result: GetPhotoByLocationDto?
+    ) = (result?.result != null
+            && result.status != null
+            && result.result.photos != null
+            && result.result.photos.isNotEmpty()
+            && result.status == STATUS_OK)
+
 }

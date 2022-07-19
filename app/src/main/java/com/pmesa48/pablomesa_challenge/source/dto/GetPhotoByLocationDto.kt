@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class GetPhotoByLocationDto(
     @SerializedName("photos")
-    val result: PhotosPageInfoDto,
+    val result: PhotosPageInfoDto?,
     @SerializedName("stat")
-    val status: String,
+    val status: String?,
     @SerializedName("code")
-    val code: String,
+    val code: String?,
     @SerializedName("message")
-    val message: String
+    val message: String?
 )
